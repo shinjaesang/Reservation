@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var btnStart : Button
     lateinit var btnDone : Button
     lateinit var rg : RadioGroup
-    lateinit var calendar : CalendarView
+    lateinit var calendar : DatePicker
     lateinit var timePick : TimePicker
     lateinit var textResult : TextView
     var selectedYear :Int = 0
@@ -32,8 +32,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         chrono = findViewById(R.id.chrono)
-        btnStart = findViewById(R.id.btnStart)
-        btnDone = findViewById(R.id.btnDone)
+//        btnStart = findViewById(R.id.btnStart)
+//        btnDone = findViewById(R.id.btnDone)
         rg = findViewById(R.id.rg)
         calendar = findViewById(R.id.calendar)
         timePick = findViewById(R.id.timePick)
@@ -52,15 +52,18 @@ class MainActivity : AppCompatActivity() {
         btnDone.setOnClickListener {
             chrono.stop()
             chrono.setTextColor(Color.CYAN)
+            selectedYear = calendar.year
+            selectedMonth = calendar.month
+            selectedDay = calendar.dayOfMonth
             textResult.setText("" + selectedYear + "년" + selectedMonth + "월" + selectedDay + "일")
             textResult.append("" + timePick.currentHour + "시")
             textResult.append("" + timePick.currentMinute + "분")
         }
-        calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
-            selectedYear = year
-            selectedMonth = month + 1
-            selectedDay = dayOfMonth
-        }
+//        calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
+//            selectedYear = year
+//            selectedMonth = month + 1
+//            selectedDay = dayOfMonth
+//        }
 
     }
 
