@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.View
+import android.widget.DatePicker;
 import android.widget.Button
 import android.widget.CalendarView
 import android.widget.Chronometer
@@ -39,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         timePick = findViewById(R.id.timePick)
         textResult = findViewById(R.id.textResult)
 
+        rg.visibility = View.INVISIBLE
         calendar.visibility = View.INVISIBLE
         timePick.visibility = View.INVISIBLE
 
@@ -47,17 +49,26 @@ class MainActivity : AppCompatActivity() {
             chrono.base = SystemClock.elapsedRealtime()
             chrono.start()
             chrono.setTextColor(Color.MAGENTA)
+            rg.visibility = View.VISIBLE
         }
 
-        btnDone.setOnClickListener {
+
+        textResult.setOnLongClickListener {
             chrono.stop()
             chrono.setTextColor(Color.CYAN)
             selectedYear = calendar.year
             selectedMonth = calendar.month
             selectedDay = calendar.dayOfMonth
-            textResult.setText("" + selectedYear + "년" + selectedMonth + "월" + selectedDay + "일")
+
+            textResult.setText("" + selectedYear + "년" + (selectedMonth + 1) + "월" + selectedDay + "일")
             textResult.append("" + timePick.currentHour + "시")
             textResult.append("" + timePick.currentMinute + "분")
+            textResult.append("예약 완료됨.")
+            rg.visibility = View.INVISIBLE
+            calendar.visibility = View.INVISIBLE
+            timePick.visibility = View.INVISIBLE
+
+            return@setOnLongClickListener true
         }
 //        calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
 //            selectedYear = year
